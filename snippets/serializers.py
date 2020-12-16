@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from .models import Snippet, LANGUAGE_CHOICE, STYLE_CHOICE
 
-
+'''
+# using serializer that like forms in django
 class SnippetSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=False, allow_blank=True, max_length=100)
@@ -28,3 +29,10 @@ class SnippetSerializer(serializers.Serializer):
         instance.save()
         return instance
 
+'''
+
+
+class SnippetSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Snippet
+        fields = ['id', 'title', 'code', 'lineos', 'language', 'style']
