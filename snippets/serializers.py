@@ -7,7 +7,7 @@ class SnippetSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(required=False, allow_blank=True, max_length=100)
     code = serializers.CharField(style={'base_template': 'textarea.html'})
-    lineos = serializers.BooleanField(required=False)
+    linenos = serializers.BooleanField(required=False)
     language = serializers.ChoiceField(choices=LANGUAGE_CHOICE, default='python')
     style = serializers.ChoiceField(choices=STYLE_CHOICE, default='friendly')
 
@@ -23,7 +23,7 @@ class SnippetSerializer(serializers.Serializer):
         """
         instance.title = validated_data.get('title', instance.title)
         instance.code = validated_data.get('code', instance.code)
-        instance.lineos = validated_data.get('lineos', instance.lineos)
+        instance.linenos = validated_data.get('lineos', instance.lineos)
         instance.language = validated_data.get('language', instance.language)
         instance.style = validated_data.get('style', instance.style)
         instance.save()
@@ -35,4 +35,4 @@ class SnippetSerializer(serializers.Serializer):
 class SnippetSerializer(serializers.ModelSerializer):
     class Meta:
         model = Snippet
-        fields = ['id', 'title', 'code', 'lineos', 'language', 'style']
+        fields = ['id', 'title', 'code', 'linenos', 'language', 'style']
