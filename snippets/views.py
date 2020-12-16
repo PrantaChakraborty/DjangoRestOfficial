@@ -56,7 +56,7 @@ def snippet_detail(request, pk):
 
 
 @api_view(['GET', 'POST'])
-def snippet_list(request):
+def snippet_list(request, format=None):
     # for list view
     if request.method == 'GET':
         snippets = Snippet.objects.all()
@@ -73,7 +73,7 @@ def snippet_list(request):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-def snippet_detail(request, pk):
+def snippet_detail(request, pk, format=None):
     try:
         snippet = Snippet.objects.get(pk=pk)
     except Snippet.DoesNotExist:
