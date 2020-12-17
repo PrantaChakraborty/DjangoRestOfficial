@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, JsonResponse, Http404
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
+from .permissions import IsOwnerReadOnly
 
 '''
 @csrf_exempt
@@ -184,7 +185,7 @@ class SnippetDetail(mixins.RetrieveModelMixin,
 class SnippetList(generics.ListCreateAPIView):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -193,7 +194,7 @@ class SnippetList(generics.ListCreateAPIView):
 class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerReadOnly]
 
 
 class UserList(generics.ListAPIView):
