@@ -15,13 +15,14 @@ STYLE_CHOICE = sorted([(item, item) for item in get_all_styles()])
 
 
 class Snippet(models.Model):
-    owner = models.ForeignKey(User, related_name='snippets', on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', related_name='snippets', on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True)
     title = models.CharField(max_length=100, blank=True, default='')
     code = models.TextField()
     linenos = models.BooleanField(default=False)
     language = models.CharField(choices=LANGUAGE_CHOICE, default='python', max_length=100)
     style = models.CharField(choices=STYLE_CHOICE, default='friendly', max_length=100)
+    highlighted = models.TextField()
 
     class Meta:
         ordering = ['created']
